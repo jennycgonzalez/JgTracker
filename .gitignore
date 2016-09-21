@@ -65,4 +65,5 @@ objecttracker
 Makefile
 core
 
-jgtracker
+./jgtracker
+*~
