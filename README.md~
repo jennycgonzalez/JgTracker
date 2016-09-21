@@ -2,9 +2,14 @@
 
 ```bash
 sudo apt-get install build-essential
-sudo apt-get install libtcmalloc-minimal4 libboost-system-dev libboost-filesystem-dev libboost-iostreams-dev
+sudo apt-get install libtcmalloc-minimal4 libboost-system-dev libboost-filesystem-dev
 sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
-
+cd ..
+cd mt
+qmake mt-library.pro
+make
+sudo make install
+cd ..
 ```
 
 ## Download and Install OpenCV with Extra Modules
@@ -22,10 +27,9 @@ sudo make install
 sudo ldconfig
 ```
 
-## Compile and Run
+## To start the tracker
 
-qmake
-make
-./jgtracker track path-to-video delay-in-seconds
+//Tracker
+ ./jgtracker track /home/jenny/Videos/single-object/Walking/ img/ groundtruth_rect.txt auto no-filter -1 histogram
 
 
