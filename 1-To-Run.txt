@@ -1,0 +1,7 @@
+//Evaluation 
+ ./jgtracker evaluate /home/jenny/Videos/single-object/Walking/ img/ groundtruth_rect.txt Histogram/txt-file-no-filter
+
+//Tracker
+ ./jgtracker track /home/jenny/Videos/single-object/Walking/ img/ groundtruth_rect.txt auto no-filter -1 histogram
+
+
