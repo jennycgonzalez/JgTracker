@@ -1,3 +1,7 @@
+#Jgtracker
+
+Real time object tracking system in videos. Employs a particle filter to estimate the centroid location and keypoint tracking and matching to estimate scale and rotation.
+
 ## Install Dependencies
 
 ```bash
