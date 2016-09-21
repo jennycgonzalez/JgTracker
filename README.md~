@@ -24,7 +24,6 @@ sudo ldconfig
 
 ## Compile and Run
 
-```bash
 qmake
 make
 ./jgtracker track path-to-video delay-in-seconds
