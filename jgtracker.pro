@@ -11,7 +11,7 @@ CONFIG -= qt
 # export ASAN_OPTIONS=symbolize=1
 # ./jgtracker params
 
-INCLUDEPATH += src
+INCLUDEPATH += src src/jgtracker/thirdparty/
 
 HEADERS += \
     src/jgtracker/thirdparty/cppmt/fastcluster/fastcluster.h \
