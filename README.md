@@ -1,6 +1,6 @@
-#Jgtracker
+# Jgtracker
 
-Real time object tracking system in videos. Employs a particle filter to estimate the centroid location and keypoint tracking and matching to estimate scale and rotation.
+Jgtracker is a real time video tracking system that employs a particle filter to estimate the centroid location of an object and keypoint tracking and matching algorithms to estimate its scale and rotation.
 
 ## Install Dependencies
 
@@ -32,5 +32,3 @@ sudo ldconfig
 qmake
 make
 ./jgtracker track path-to-video delay-in-seconds
-
-
