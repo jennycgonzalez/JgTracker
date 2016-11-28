@@ -1,3 +1,39 @@
+//     ___     _____              _
+//    |_  |   |_   _|            | |
+//      | | __ _| |_ __ __ _  ___| | _____ _ __
+//      | |/ _` | | '__/ _` |/ __| |/ / _ \ '__|
+//  /\__/ / (_| | | | | (_| | (__|   <  __/ |
+//  \____/ \__, \_/_|  \__,_|\___|_|\_\___|_|
+//         __/ |
+//        |___/
+//
+// https://github.com/jennycgonzalez/jgtracker
+//
+// BSD 2-Clause License
+
+/*
+Copyright (c) 2016, Jenny Gonzalez
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+* Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation
+and/or other materials provided with the distribution.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
 #include "Evaluator.h"
 
 #include <fstream>
@@ -111,7 +147,7 @@ std::vector<cv::Rect2f> ReadTrackFromFile(
   std::vector<cv::Rect2f> track;
 
   for (std::string line; std::getline(stream, line);) {
-    mt::check(stream, "Fetching line from '%s' failed", filename.c_str());
+    mt::check(!stream.fail(), "Fetching line from '%s' failed", filename.c_str());
     std::istringstream iss(line);
     cv::Rect2f box;
     iss >> box.x >> box.y >> box.width >> box.height;
@@ -131,24 +167,24 @@ void SavePascalChallengeScoresInFile(
     const boost::filesystem::path& output_path) {
   std::ofstream ofs(output_path.c_str());
   size_t num_steps = scores.size();
-  mt::check(ofs, "Error by creating file '%s'", output_path.c_str());
+  mt::check(static_cast<bool>(ofs), "Error by creating file '%s'", output_path.c_str());
   ofs << "Threshold step is: " << 1.0 / static_cast<double>(num_steps) << '\n';
-  mt::check(ofs << scores, "Error writing '%s'", output_path.c_str());
+  mt::check(static_cast<bool>(ofs << scores), "Error writing '%s'", output_path.c_str());
 }
 
 void SaveCenterLocationErrorInFile(
     const std::vector<double>& errors,
     const boost::filesystem::path& output_path) {
   std::ofstream ofs(output_path.c_str());
-  mt::check(ofs, "Error by creating file '%s'", output_path.c_str());
-  mt::check(ofs << errors, "Error writing '%s'", output_path.c_str());
+  mt::check(static_cast<bool>(ofs), "Error by creating file '%s'", output_path.c_str());
+  mt::check(static_cast<bool>(ofs << errors), "Error writing '%s'", output_path.c_str());
 }
 
 void SaveExecutionTime(double execution_time,
                                    const std::string &output_path) {
   std::ofstream ofs(output_path.c_str());
-  mt::check(ofs, "Error by creating file '%s'", output_path.c_str());
-  mt::check(ofs << execution_time, "Error writing '%s'", output_path.c_str());
+  mt::check(static_cast<bool>(ofs), "Error by creating file '%s'", output_path.c_str());
+  mt::check(static_cast<bool>(ofs << execution_time), "Error writing '%s'", output_path.c_str());
 }
 
 void SaveTracksInFile(const Instances &track,
@@ -157,8 +193,8 @@ void SaveTracksInFile(const Instances &track,
   MT_ASSERT_FALSE(track.empty());
   log() << "Saving results\n";
   std::ofstream ofs(output_path.c_str());
-  mt::check(ofs, "Error by creating file '%s'", output_path.c_str());
-  mt::check(ofs << track, "Error writing '%s'", output_path.c_str());
+  mt::check(static_cast<bool>(ofs), "Error by creating file '%s'", output_path.c_str());
+  mt::check(static_cast<bool>(ofs << track), "Error writing '%s'", output_path.c_str());
   log() << "End of Saving results\n";
 }
 

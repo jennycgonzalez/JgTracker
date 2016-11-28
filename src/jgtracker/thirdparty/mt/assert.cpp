@@ -20,6 +20,7 @@
 #include <cxxabi.h>    // abi::__cxa_demangle
 #include <execinfo.h>  // backtrace and backtrace_symbols
 #include <algorithm>
+#include <iostream>
 #include <memory>
 #include <string>
 #include <vector>

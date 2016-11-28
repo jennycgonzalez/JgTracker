@@ -2,6 +2,10 @@
 
 Jgtracker is a real time video tracking system that employs a particle filter to estimate the centroid location of an object and keypoint tracking and matching algorithms to estimate its scale and rotation.
 
+# License
+
+Jgtracker is freely available under the BSD license. 
+
 ## Install Dependencies
 
 ```bash
@@ -15,6 +19,9 @@ sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavform
 
 ```bash
 git clone https://github.com/Itseez/opencv_contrib.git
+cd opencv_contrib
+git checkout 1d90d67016a83f9ed5c2eb2db1c864ddd27a93ea
+cd ..
 wget https://github.com/Itseez/opencv/archive/3.1.0.zip
 unzip 3.1.0.zip
 cd opencv-3.1.0
@@ -25,10 +32,60 @@ make -j4
 sudo make install
 sudo ldconfig
 ```
-
 ## Compile and Run
 
 ```bash
 qmake
 make
-./jgtracker track path-to-video delay-in-seconds
+./jgtracker track path-to-video-folder delay-in-miliseconds
+
+The last argument "delay-in-miliseconds" indicates the pause made between each frame when its value its greater than zero. However, fo a value of "zero" it makes
+the system wait for a key stroke infinitely. Finally, when this argument has a negative value the system does not display the frames while processing the video.
+   
+## Usage
+
+The video folder should have the following structure:
+
+```.
+├── config.ini
+├── groundtruth.txt
+├── img
+│   ├── 0001.jpg
+│   ├── 0002.jpg
+│   ├── 0003.jpg
+│   ├── 0004.jpg
+│   ├── ...
+
+```
+
+The video's "groundtruth.txt" file is required to initialize the target and its values are separated with space (not with comma). The "config.file" and "groundtruth.txt" files
+for the video "Basketball" (http://cvlab.hanyang.ac.kr/tracker_benchmark/seq/Basketball.zip) are given as example. When the system is done processing the video,
+it saves the tracking results in a text file named " jg-result-test-x.txt" inside the video folder, as shown in the following tree:
+
+```
+.
+├── config.ini
+├── groundtruth.txt
+├── img
+│   ├── 0001.jpg
+│   ├── 0002.jpg
+│   ├── 0003.jpg
+│   ├── 0004.jpg
+│   ├── ...
+│   └── 0725.jpg
+└── results
+    └── BRISK-BRISK
+        └── jg-result-test-1.txt
+```
+
+The folder's name "BRISK-BRISK" comes from the keypoint extractor and descriptor given in the "config.ini" file:
+
+```bash
+keypoint_extractor=BRISK
+keypoint_descriptor=BRISK
+
+```
+
+
+
+

@@ -1,3 +1,39 @@
+//     ___     _____              _
+//    |_  |   |_   _|            | |
+//      | | __ _| |_ __ __ _  ___| | _____ _ __
+//      | |/ _` | | '__/ _` |/ __| |/ / _ \ '__|
+//  /\__/ / (_| | | | | (_| | (__|   <  __/ |
+//  \____/ \__, \_/_|  \__,_|\___|_|\_\___|_|
+//         __/ |
+//        |___/
+//
+// https://github.com/jennycgonzalez/jgtracker
+//
+// BSD 2-Clause License
+
+/*
+Copyright (c) 2016, Jenny Gonzalez
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+* Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation
+and/or other materials provided with the distribution.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
 #include <chrono>
 #include <cmath>
 #include <fstream>
@@ -72,7 +108,7 @@ void ShowHelpMessage() {
       "\n %-10s Print this help message and exit."
       "\n %-10s Run the object tracker."
       "\n\nEXAMPLES\n"
-      "\n %s %-5s video/path delay\n\n",
+      "\n %s %-5s video/path delay-in-seconds\n\n",
       TOOLNAME, HELP, TRACK, TOOLNAME, TRACK);
 }
 
@@ -129,7 +165,7 @@ jg::ColorSpaceEnum GetColorSpaceEnum(const std::string &color_space) {
 
 jg::HistogramEnum GetHistogramEnum(const std::string &histogram_type) {
   if (histogram_type == "integral") {
-    return jg::kIntegralHistogram;
+    return jg::kIntegralBMHistogram;
   } else {
     return jg::kNormalHistogram;
   }
@@ -177,10 +213,6 @@ jg::KeypointDescriptorEnum GetKeypointDescriptorEnum(
     return jg::kSURFDescriptor;
   }
 }
-
-//------------------------------------------------------------------------------
-// Track with Particle Filter + CMT
-//------------------------------------------------------------------------------
 
 void TrackWithParticleFilterAndKeypoints(const CommandLine &cmd_line) {
   std::chrono::time_point<std::chrono::system_clock> start, end;
@@ -245,7 +277,7 @@ void TrackWithParticleFilterAndKeypoints(const CommandLine &cmd_line) {
     std::unique_ptr<jg::SIRParticleFilters> particle_filters;
     std::unique_ptr<jg::IntegralHistogramFactory> integral_histogram_creator;
 
-    if (histogram_enum == jg::kIntegralHistogram) {
+    if (histogram_enum == jg::kIntegralBMHistogram) {
       particle_filters.reset(new jg::SIRParticleFiltersIntegralHistogram(
           cmd_line.ini_config_file, frame));
       switch (color_space_enum) {
@@ -297,7 +329,7 @@ void TrackWithParticleFilterAndKeypoints(const CommandLine &cmd_line) {
     std::vector<cv::Mat> a_channel_hist;
     std::vector<cv::Mat> b_channel_hist;
     std::vector<cv::Mat> c_channel_hist;
-    if (histogram_enum == jg::kIntegralHistogram) {
+    if (histogram_enum == jg::kIntegralBMHistogram) {
       // For computing the integral histograms
       integral_histogram_creator->ComputeIntegralBinaryMasks(
           new_target.original_image, a_channel_hist, b_channel_hist,
@@ -341,17 +373,16 @@ void TrackWithParticleFilterAndKeypoints(const CommandLine &cmd_line) {
 
     jg::log() << "Frame num:" << frame_number << "\n";
 
-    if (delay != -1) {
+    if (delay > 0) {
       cv::waitKey(delay);
     }
 
     jg::log() << "Num frame channels:" << frame.channels() << "\n";
-    jg::log() << "Update track:"
-              << "\n";
+    jg::log() << "Update track:\n";
+
 
     jg::UpdateTracks(targets, frame_window, track);
-    jg::log() << "Finish  track:"
-              << "\n";
+    jg::log() << "Finish  track: \n";
 
     jg::log() << "Create background mask" << frame.channels() << "\n";
     cv::Mat background_mask = cv::Mat::ones(frame.rows, frame.cols, CV_8UC1);
@@ -632,19 +663,11 @@ void TrackWithParticleFilterAndKeypoints(const CommandLine &cmd_line) {
         }
       }
 
-      //      jg::Mat3Uchar extra_frame_2;
-      //      temp_frame.copyTo(extra_frame_2);
-      //      particle_filters->PrintParticles(extra_frame_2);
-      //      cv::imshow("Final Particles", extra_frame_2);
-
-      //      cv::Scalar crazy = cv::Scalar(0, 255, 255);
-      //      jg::DrawKeypoints(tracked_keypoints_inside, frame, crazy,
-      //                        "Tracked keypoints inside");
       if (kShowImages) {
         manager.display()->ShowAllTargets(targets, temp_frame, "Target");
       }
 
-      if (delay != -1) {
+      if (delay > 0) {
         cv::waitKey(delay);
       }
 
