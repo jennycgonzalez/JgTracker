@@ -78,7 +78,7 @@ struct SearchArea {
 // BSD 2-Clause License
 
 /*
-Copyright (c) 2016, Jenny Gonzalez
+Copyright (c) 2016, Jenny González
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
