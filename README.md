@@ -38,6 +38,7 @@ sudo ldconfig
 qmake
 make
 ./jgtracker track path-to-video-folder delay-in-miliseconds
+```
 
 The last argument "delay-in-miliseconds" indicates the pause made between each frame when its value its greater than zero. However, fo a value of "zero" it makes
 the system wait for a key stroke infinitely. Finally, when this argument has a negative value the system does not display the frames while processing the video.
@@ -55,15 +56,13 @@ The video folder should have the following structure:
 │   ├── 0003.jpg
 │   ├── 0004.jpg
 │   ├── ...
-
 ```
 
 The video's "groundtruth.txt" file is required to initialize the target and its values are separated with space (not with comma). The "config.file" and "groundtruth.txt" files
 for the video "Basketball" (http://cvlab.hanyang.ac.kr/tracker_benchmark/seq/Basketball.zip) are given as example. When the system is done processing the video,
 it saves the tracking results in a text file named " jg-result-test-x.txt" inside the video folder, as shown in the following tree:
 
-```
-.
+```.
 ├── config.ini
 ├── groundtruth.txt
 ├── img
@@ -83,7 +82,6 @@ The folder's name "BRISK-BRISK" comes from the keypoint extractor and descriptor
 ```bash
 keypoint_extractor=BRISK
 keypoint_descriptor=BRISK
-
 ```
 
 
