@@ -57,11 +57,12 @@ The video folder must have the following structure:
 
 The "config.ini" and "groundtruth.txt" files for 9 videos of the Visual Tracker Benchmark http://cvlab.hanyang.ac.kr/tracker_benchmark/datasets.html are given in the "configuration-files" folder. 
 
-## About the ground truth file
+## The Ground Truth File
 
 For any video the "groundtruth.txt" file is required to initialize the target in the first frame. Spaces and not commas are used to separate the values in this file. In each row, the first two columns contain
 the X and Y coordinates of the upper-left corner of the bounding box that surrounds the target. The third and fourth columns contain the width and height of the bounding box.  
 
+## The Tracking Results
 
 When the system is done processing the video,
 it saves the tracking results in a text file named "jg-result-test-x.txt" inside the video folder, as shown in the following tree:
