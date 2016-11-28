@@ -73,7 +73,7 @@ it saves the tracking results in a text file named " jg-result-test-x.txt" insid
         └── jg-result-test-1.txt
 ```
 
-The folder's name "BRISK-BRISK" comes from the keypoint extractor and descriptor given in the "config.ini" file:
+The folder's name "BRISK-BRISK" comes from the keypoint extractor and descriptor methods given in the "config.ini" file:
 
 ```bash
 keypoint_extractor=BRISK
