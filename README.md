@@ -55,8 +55,9 @@ The video folder must have the following structure:
 │   ├── ...
 ```
 
-The "config.ini" and "groundtruth.txt" files for the video "Basketball" (http://cvlab.hanyang.ac.kr/tracker_benchmark/seq/Basketball.zip) are given as an example in the folder "Basketball" from this repository. The "groundtruth.txt" file is required to initialize the target in the first frame and its values are separated with space and not with comma. When the system is done processing the video,
-it saves the tracking results in a text file named " jg-result-test-x.txt" inside the video folder, as shown in the following tree:
+The "config.ini" and "groundtruth.txt" files for 9 videos of the Visual Tracker Benchmark http://cvlab.hanyang.ac.kr/tracker_benchmark/datasets.html are given in the "configuration-files" folder. 
+For any video the "groundtruth.txt" file is required to initialize the target in the first frame. Its values are separated with space and not with comma. When the system is done processing the video,
+it saves the tracking results in a text file named "jg-result-test-x.txt" inside the video folder, as shown in the following tree:
 
 ```.
 ├── config.ini
