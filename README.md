@@ -55,7 +55,7 @@ The video folder must have the following structure:
 │   ├── ...
 ```
 
-The "config.ini" and "groundtruth.txt" files for 9 videos of the Visual Tracker Benchmark http://cvlab.hanyang.ac.kr/tracker_benchmark/datasets.html are given in the "configuration-files" folder. 
+The "config.ini" and "groundtruth.txt" files for 9 videos of the Visual Tracker Benchmark http://cvlab.hanyang.ac.kr/tracker_benchmark/datasets.html are given in the "configuration-files" folder of this repository. 
 
 ## The Ground Truth File
 
