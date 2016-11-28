@@ -55,8 +55,7 @@ The video folder must have the following structure:
 │   ├── ...
 ```
 
-The "groundtruth.txt" file is required to initialize the target in the first frame and its values are separated with space and not with comma. The "config.file" and "groundtruth.txt" files
-for the video "Basketball" (http://cvlab.hanyang.ac.kr/tracker_benchmark/seq/Basketball.zip) are given as an example. When the system is done processing the video,
+The "config.file" and "groundtruth.txt" files for the video "Basketball" (http://cvlab.hanyang.ac.kr/tracker_benchmark/seq/Basketball.zip) are given as an example. The "groundtruth.txt" file is required to initialize the target in the first frame and its values are separated with space and not with comma. When the system is done processing the video,
 it saves the tracking results in a text file named " jg-result-test-x.txt" inside the video folder, as shown in the following tree:
 
 ```.
