@@ -1,6 +1,6 @@
 # Jgtracker
 
-Jgtracker is a real time video tracking system that employs a particle filter to estimate the centroid location of an object and keypoint tracking and matching algorithms to estimate its scale and rotation.This implementation runs on Linux.
+Jgtracker is a real time video tracking system that employs a particle filter to estimate the centroid location of an object and keypoint tracking and matching algorithms to estimate its scale and rotation. This implementation runs on Linux.
 
 # License
 
