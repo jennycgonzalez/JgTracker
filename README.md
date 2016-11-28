@@ -39,8 +39,8 @@ qmake
 make
 ./jgtracker track path-to-video-folder delay-in-miliseconds
 ```
-The last argument "delay-in-miliseconds" indicates the pause made between each frame when its value its greater than zero. However, for a value of "zero" it makes
-the system wait infinitely for a key stroke. Finally, when it has a negative value the system does not display the frames while processing the video.
+When the value of "delay-in-miliseconds" is greater than zero, a pause of that amount of time is made between each frame. When its value is "zero" it makes
+the system wait infinitely for a key stroke before displaying the next frame. Finally, when it has a negative value the system does not display the frames while processing the video.
 
 The video folder must have the following structure:
 
